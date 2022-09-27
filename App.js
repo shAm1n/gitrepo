@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 //import Apirepo from './components/Apirepo';
-import Recipesearch from './components/Recipesearch';
+//import Recipesearch from './components/Recipesearch';
 //import Exchange from './components/Exchange';
+import Map from './components/Map';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Recipesearch />
+      <Map />
     </View>
   );
 }
