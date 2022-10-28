@@ -1,23 +1,15 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
+//import Ionicons from '@expo/vector-icons/Ionicons';
 //import Apirepo from './components/Apirepo';
-//import Recipesearch from './components/Recipesearch';
-//import Exchange from './components/Exchange';
-import Map from './components/Map';
+import Recipesearch from './components/Recipesearch';
+//import FindLocation from './components/FindLocation';
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Map />
+    <View>
+      <Recipesearch />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

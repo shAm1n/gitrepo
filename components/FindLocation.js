@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MapView, {Marker} from 'react-native-maps';
-import { TextInput, Button, View, StyleSheet, Dimensions } from 'react-native';
+import { TextInput, Button, View, StyleSheet, Dimensions, Alert } from 'react-native';
+import * as Location from 'expo-location';
 
-export default function Map() {
+export default function FindLocation() {
+    const [location, setLocation] = useState(null);
     const [address, setAddress] = useState('');
     const [cords, setCords] = useState({
-      latitude: 60.200692,
-      longitude: 24.934302,
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
       latitudeDelta: 0.0322,
       longitudeDelta: 0.0221
     });
+
+    useEffect(() => {
+      (async () => {
+        let {status} = await Location.requestForegroundPermissionsAsync();
+        if(status !== 'granted') {
+          Alert.alert('No permission to get location')
+          return;
+        }
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+      })();
+    }, []);
 
     const fetchData = () => {
         fetch('http://www.mapquestapi.com/geocoding/v1/address?key=kxKEVG5doZHhnJYTIdj5PkObNk7ePXFi&location=' + address)
@@ -44,6 +58,9 @@ return (
       style ={{fontSize: 18, width: 200, backgroundColor: '#fff'}}
       onChangeText={text => setAddress(text)} />
       <Button title='Show' onPress={fetchData}></Button>
+      <Text style={styles.boldText}>
+            {locationStatus}
+          </Text>
     </View>
     );
 }
